@@ -5,6 +5,7 @@ class ProductCategorySerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = Category
 		fields = (
+			# 'url',
 			'category_name',
 			'category_image'
 			)
@@ -12,12 +13,15 @@ class ProductCategorySerializer(serializers.HyperlinkedModelSerializer):
 
 
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
-	category = serializers.SlugRelatedField(queryset=Category.objects.all(), slug_field='category_name')
+	product_category = serializers.SlugRelatedField(queryset=Category.objects.all(), slug_field='category_name')
 	# image    = ProductImageSerializer()
+	owner = serializers.ReadOnlyField(source='owner.username')
+
 	class Meta:
 		model = Product
 		fields = (
-			'category',
+			'url',
+			'product_category',
 			# 'image',
 			'title',
 			"price",
@@ -27,6 +31,7 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
 			"total_in_stock",
 			"description",
 			# tags
+			"owner",
 			)
 
 

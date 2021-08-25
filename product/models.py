@@ -1,5 +1,6 @@
 from django.db import models
 from taggit.managers import TaggableManager
+from django.contrib.auth.models import User
 # Create your models here.
 
 class Category(models.Model):
@@ -24,9 +25,10 @@ class Product(models.Model):
 	in_stock = models.BooleanField(default=True)
 	total_in_stock = models.IntegerField(default=0)
 	description = models.TextField()
-	tags = TaggableManager()
+	# tags = TaggableManager()
 	created_at = models.DateTimeField(auto_now=True)
 	update_at = models.DateTimeField(auto_now_add=True)
+	owner  = models.ForeignKey(User, on_delete=models.CASCADE)
 
 	def __str__(self):
 		return self.title

@@ -17,7 +17,12 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url, include
 
+from rest_framework.authtoken import views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    url(r'^auth/', include('rest_framework.urls')),
     url('^', include('product.urls')),
+    path('api-auth-token/', views.obtain_auth_token),
+    path('api/v1/dj-rest-auth/', include('dj_rest_auth.urls')),
 ]
