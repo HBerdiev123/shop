@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Cart, WishList
+from .models import Cart, WishList as WList
 
 from . serializers import CartSerializer, WishListSerializer
 
@@ -22,7 +22,7 @@ class WishList(generics.ListCreateAPIView):
 
 	def get_queryset(self):
 		user = self.request.user
-		return WishList.objects.filter(owner=user)
+		return WList.objects.filter(owner=user)
 	
 	def perform_create(self, serialize):
 		serialize.save(owner=self.request.user)
