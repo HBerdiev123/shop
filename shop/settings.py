@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'product',
+    'cart',
     'taggit',
     'dj_rest_auth',
     

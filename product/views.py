@@ -3,6 +3,7 @@ from django.shortcuts import render
 from .models import Product, Category, ProductImage, Review
 from .serializers import ProductSerializer, ProductCategorySerializer, ProductImageSerializer, ProductReviewSerializer
 from . import custompermission 
+# from cart.views import CartList
 
 from rest_framework import generics
 from rest_framework.response import Response
@@ -19,7 +20,8 @@ class ApiRoot(generics.GenericAPIView):
 				"products":reverse(ProductList.name, request=request),
 				"productimages":reverse(ProductImageListView.name, request=request),
 				"reviews":reverse(ProductReviewList.name, request=request),
-				
+				"cart":reverse('cart:list', request=request),
+				"wish-list":reverse('cart:wishes', request=request),
 			})
 
 
@@ -33,6 +35,10 @@ class ProductList(generics.ListCreateAPIView):
 		custompermission.CreateProductPermission,
 		)
 
+	search_fields = ('title', 'product_category')
+	filter_fields = ('price',)
+
+
 	def perform_create(self, serialize):
 		serialize.save(owner=self.request.user)
 
@@ -42,6 +48,7 @@ class ProductDetail(generics.RetrieveUpdateDestroyAPIView):
 	serializer_class = ProductSerializer
 	name = "product-detail"
 	look_up ="pk"
+
 	permission_classes = (
 		permissions.IsAuthenticatedOrReadOnly,
 		custompermission.CreateProductPermission,
@@ -55,8 +62,8 @@ class ProductCategory(generics.ListCreateAPIView):
 	serializer_class = ProductCategorySerializer
 	name = 'category-lists'
 	permission_classes = (
-		permissions.IsAuthenticated,
-		# custompermission.CanDeleteProduct,
+			permissions.IsAuthenticated,
+			# custompermission.CanDeleteProduct,
 		)
 
 
@@ -65,8 +72,8 @@ class ProductCategoryDetail(generics.RetrieveUpdateDestroyAPIView):
 	serializer_class = ProductCategorySerializer
 	name = 'category-detail'
 	permission_classes = (
-	permissions.IsAuthenticated,
-	# custompermission.CanDeleteProduct,
+		permissions.IsAuthenticated,
+		# custompermission.CanDeleteProduct,
 	)
 
 

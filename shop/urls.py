@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^auth/', include('rest_framework.urls')),
     url('^', include('product.urls')),
+    url('^cart/', include('cart.urls', namespace="cart")),
     path('api-auth-token/', views.obtain_auth_token),
     path('api/v1/dj-rest-auth/', include('dj_rest_auth.urls')),
 ]
