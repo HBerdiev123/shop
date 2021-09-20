@@ -12,9 +12,6 @@ class ProductCategorySerializer(serializers.HyperlinkedModelSerializer):
 
 
 
-
-
-
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
 	product_category = serializers.SlugRelatedField(queryset=Category.objects.all(), slug_field='category_name')
 	# image    = ProductImageSerializer()
