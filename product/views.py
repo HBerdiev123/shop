@@ -82,6 +82,10 @@ class ProductImageListView(generics.ListCreateAPIView):
 	serializer_class = ProductImageSerializer
 	name = 'product-image'
 
+	def perform_create(self, serialize):
+		serialize.save(owner=self.request.user)
+
+
 
 class ProductImageDetailView(generics.RetrieveUpdateDestroyAPIView):
 	queryset = ProductImage.objects.all()

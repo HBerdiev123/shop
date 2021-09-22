@@ -29,7 +29,7 @@ class Product(models.Model):
 	# tags = TaggableManager()
 	created_at = models.DateTimeField(auto_now=True)
 	update_at = models.DateTimeField(auto_now_add=True)
-	owner  = models.ForeignKey(User, on_delete=models.CASCADE)
+	owner  = models.ForeignKey('auth.user', on_delete=models.CASCADE)
 
 
 	def __str__(self):
@@ -39,7 +39,7 @@ class ProductImage(models.Model):
 	image_title = models.CharField(max_length=35)
 	image = models.ImageField(upload_to='products/')
 	product = models.ForeignKey(Product, related_name="images", on_delete=models.CASCADE)
-	owner  = models.ForeignKey(User, on_delete=models.CASCADE)
+	owner  = models.ForeignKey('auth.user', on_delete=models.CASCADE)
 
 	def __str__(self):
 		return self.image_title
