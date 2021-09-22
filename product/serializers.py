@@ -10,13 +10,21 @@ class ProductCategorySerializer(serializers.HyperlinkedModelSerializer):
 			'category_image'
 			)
 
+class ProductImageSerializer(serializers.HyperlinkedModelSerializer):
+	product = serializers.SlugRelatedField(queryset=Product.objects.all(), slug_field='title')
 
+	class Meta:
+		model  = ProductImage
+		fields = (
+			'image_title',
+			'image',
+			'product',
+			)
 
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
 	product_category = serializers.SlugRelatedField(queryset=Category.objects.all(), slug_field='category_name')
-	# image    = ProductImageSerializer()
+	images = ProductImageSerializer(read_only=True, many=True)
 	owner = serializers.ReadOnlyField(source='owner.username')
-	# image = ProductImage.SlugRelatedField()
 
 	class Meta:
 		model = Product
@@ -24,7 +32,7 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
 			'url',
 			'product_category',
 			# 'product_image',
-			# 'image',
+			'images',
 			'title',
 			"price",
 			'new_price',
@@ -37,16 +45,6 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
 			)
 
 
-class ProductImageSerializer(serializers.HyperlinkedModelSerializer):
-	product = serializers.SlugRelatedField(queryset=Product.objects.all(), slug_field='title')
-
-	class Meta:
-		model  = ProductImage
-		fields = (
-			'image_title',
-			'image',
-			'product',
-			)
 
 
 class ProductReviewSerializer(serializers.HyperlinkedModelSerializer):
