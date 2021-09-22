@@ -28,4 +28,4 @@ urlpatterns = [
     url('^cart/', include('cart.urls', namespace="cart")),
     path('api-auth-token/', views.obtain_auth_token),
     path('api/v1/dj-rest-auth/', include('dj_rest_auth.urls')),
-]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
