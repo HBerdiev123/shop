@@ -35,7 +35,7 @@ class ProductList(generics.ListCreateAPIView):
 		custompermission.CreateProductPermission,
 		)
 
-	search_fields = ('title', 'product_category__category_name')
+	search_fields = ('title', 'product_category__category_name', "description")
 	filter_fields = ('price',)
 
 
