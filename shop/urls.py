@@ -20,6 +20,8 @@ from django.conf.urls import url, include
 from django.conf.urls.static import static
 from django.conf import settings
 from rest_framework.authtoken import views
+from rest_framework_jwt.views import obtain_jwt_token
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,4 +30,6 @@ urlpatterns = [
     url('^cart/', include('cart.urls', namespace="cart")),
     path('api-auth-token/', views.obtain_auth_token),
     path('api/v1/dj-rest-auth/', include('dj_rest_auth.urls')),
+    path('token-auth/', obtain_jwt_token),
+    path('core/', include('core.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

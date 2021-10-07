@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'cart',
     'taggit',
     'dj_rest_auth',
+    'core.apps.CoreConfig',
+    # 'django_framework_jwt',
     
 ]
 
@@ -157,6 +159,7 @@ REST_FRAMEWORK = {
 
    
    'DEFAULT_AUTHENTICATION_CLASSES':(
+    'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     'rest_framework.authentication.BasicAuthentication',
     'rest_framework.authentication.SessionAuthentication',
     ),
@@ -165,3 +168,5 @@ REST_FRAMEWORK = {
     'rest_framework.permissions.IsAuthenticatedOrReadOnly',
    ]
 }
+
+JWT_AUTH = {'JWT_RESPONSE_PAYLOAD_HANDLER': 'shop.utils.my_jwt_response_handler'}
