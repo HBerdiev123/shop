@@ -24,9 +24,16 @@ class UserSerializerWithToken(serializers.ModelSerializer):
 		instance = self.Meta.model(**validated_data)
 		if password is not None:
 			instance.set_password(password)
-			instance.save()
+		instance.save()
 		return instance
+
+	def validate(self, data):
+		# if data["password"] != data["password2"]:
+		# 	raise serializers.ValidationError("Password match did not fullfilled!")
+		if data['email'] is None or "":
+			raise serializers.ValidationError('Please, fill in email field')
+		return data
 
 	class Meta:
 		model = User
-		field= ('token','username', 'password')
+		fields= ('token','username', 'password', "email")

@@ -30,6 +30,7 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
 		model = Product
 		fields = (
 			'url',
+			'id',
 			'product_category',
 			# 'product_image',
 			'images',

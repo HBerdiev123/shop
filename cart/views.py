@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import Cart, WishList as WList
-
+from product import custompermission 
+from rest_framework import permissions
 from . serializers import CartSerializer, WishListSerializer
 
 # rest_framework related imports
@@ -14,7 +15,21 @@ class CartList(generics.ListCreateAPIView):
 		return Cart.objects.filter(owner=user)	
 
 	def perform_create(self, serialize):
-		serializer.save(owner=self.request.user) 
+		serialize.save(owner=self.request.user)
+
+class CartDetail(generics.RetrieveUpdateDestroyAPIView):
+	 serializer_class = CartSerializer
+	 name = "cart-detail"
+
+	 def get_queryset(self):
+	 	user = self.request.user 
+	 	return Cart.objects.filter(owner=user)
+
+	 permission_classes = (
+		permissions.IsAuthenticatedOrReadOnly,
+		custompermission.CreateProductPermission,
+		 )
+
 
 
 class WishList(generics.ListCreateAPIView):

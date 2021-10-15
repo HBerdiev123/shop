@@ -23,3 +23,4 @@ class UserList(APIView):
 			return Response(serialize.data, status=status.HTTP_201_CREATED)
 		return Response(serialize.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
