@@ -170,3 +170,11 @@ REST_FRAMEWORK = {
 }
 
 JWT_AUTH = {'JWT_RESPONSE_PAYLOAD_HANDLER': 'shop.utils.my_jwt_response_handler'}
+
+
+CORS_ALLOWED_ORIGINS = [
+    "https://vlmfp.csb.app",
+    "https://example.com",
+    "http://localhost:8080",
+    "http://127.0.0.1:9000",
+]
